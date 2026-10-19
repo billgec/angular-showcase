@@ -1,0 +1,53 @@
+<mat-toolbar class="header">
+  @if (isMobile()) {
+    <button matIconButton aria-label="Navigation umschalten" (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+  <a class="brand" routerLink="/">Angular Showcase</a>
+</mat-toolbar>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav
+    #sidenav
+    class="navigation"
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="!isMobile()"
+  >
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/"
+        routerLinkActive
+        #home="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [activated]="home.isActive"
+        (click)="closeOnMobile()"
+        >Übersicht</a
+      >
+
+      @for (group of groups; track group[0]) {
+        <h3 matSubheader>{{ group[0] }}</h3>
+        @for (page of group[1]; track page.path) {
+          <a
+            mat-list-item
+            [routerLink]="'/' + page.path"
+            routerLinkActive
+            #link="routerLinkActive"
+            [activated]="link.isActive"
+            (click)="closeOnMobile()"
+            >{{ page.label }}</a
+          >
+        }
+      } @empty {
+        <p class="empty">Noch keine Komponenten vorhanden.</p>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main class="content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
