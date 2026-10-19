@@ -59,4 +59,4 @@ src/
    ];
    ```
 
-The route (lazily loaded) and the navigation entry are generated automatically. Paths are kept identical to the React showcase so both implementations can be compared page by page.
+The route (lazily loaded) and the navigation entry are generated automatically. Entries without `loadComponent` show a placeholder page, so the navigation can mirror the original menu before every page is implemented. Paths are kept identical to the React showcase so both implementations can be compared page by page.
